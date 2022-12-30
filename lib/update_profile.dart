@@ -20,7 +20,7 @@ class UpdateProfile extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 38, 44, 48),
+                  color: Color.fromARGB(4, 234, 238, 234),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),
@@ -118,9 +118,7 @@ class UpdateProfile extends StatelessWidget {
                     right: 15.5,
                     child: Container(
                         padding: const EdgeInsets.all(5.0),
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 15, 54, 60),
-                            shape: BoxShape.circle),
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: const Icon(
                           Icons.edit,
                           size: 30.0,
@@ -139,7 +137,7 @@ class UpdateProfile extends StatelessWidget {
     return const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
         borderSide: BorderSide(
-          color: Color.fromARGB(255, 213, 203, 203),
+          color: Color.fromARGB(255, 58, 29, 248),
           width: 3,
         ));
   }
@@ -148,7 +146,7 @@ class UpdateProfile extends StatelessWidget {
     return const OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
         borderSide: BorderSide(
-          color: Color(0xfffcbf49),
+          color: Color.fromARGB(255, 58, 29, 248),
           width: 3,
         ));
   }

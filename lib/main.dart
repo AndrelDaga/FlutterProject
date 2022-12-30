@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'update_profile.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+import 'update_profile.dart';
+import 'sign_in.dart';
+import 'sign_up.dart';
+
+void main() {
   runApp(const MyApp());
 }
 
@@ -16,11 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const UpdateProfile(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        '/signin': (context) => SignInScreen(),
+        '/signup': (context) => SignUpScreen(),
+        '/update': (context) => UpdateProfile(),
+      },
     );
   }
 }
@@ -33,32 +34,49 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final CollectionReference _profiles =
-      FirebaseFirestore.instance.collection('Profile');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder(
-        stream: _profiles.snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-          if (streamSnapshot.hasData) {
-            return ListView.builder(
-                itemCount: streamSnapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot documentSnapshot =
-                      streamSnapshot.data!.docs[index];
-                  return Card(
-                      margin: const EdgeInsets.all(10),
-                      child: ListTile(
-                        title: Text(documentSnapshot['name']),
-                        subtitle: Text(documentSnapshot['car_make']),
-                      ));
-                });
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+      appBar: AppBar(title: Text('Home')),
+      body: Row(
+        children: [
+          TextButton.icon(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignInScreen(),
+                    fullscreenDialog: true,
+                  ));
+            },
+            icon: const Icon(Icons.add),
+            label: Text('Signin'),
+          ),
+          TextButton.icon(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SignUpScreen(),
+                    fullscreenDialog: true,
+                  ));
+            },
+            icon: const Icon(Icons.add),
+            label: Text('SignUp'),
+          ),
+          TextButton.icon(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateProfile(),
+                    fullscreenDialog: true,
+                  ));
+            },
+            icon: const Icon(Icons.add),
+            label: Text('Profile'),
+          ),
+        ],
       ),
     );
   }
